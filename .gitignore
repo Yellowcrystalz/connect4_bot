@@ -2,3 +2,4 @@ test*
 Makefile
 .vscode
 .env
+__pycache__
