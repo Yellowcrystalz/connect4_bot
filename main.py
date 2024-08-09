@@ -1,22 +1,35 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import os
 from dotenv import load_dotenv
 import asyncio
-
+from itertools import cycle
 
 load_dotenv()
 token = os.getenv('DISCORD_BOT_TOKEN')
 
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
+bot_statuses = cycle(["Status One", "Status Two"])
+
+@tasks.loop(seconds=5)
+async def change_bot_status():
+    await bot.change_presence(activity=discord.Game(next(bot_statuses)))
+
 @bot.event
 async def on_ready():
     print("Online")
+    change_bot_status.start()
+
+    try:
+        synced_commands = await bot.tree.sync()
+        print(f"Synced {len(synced_commands)} commands.")
+    except Exception as e:
+        print("An error with syncing application commands has occured: ", e)
 
 @bot.command()
 @commands.is_owner()
-async def shutdown(ctx):
+async def kill(ctx):
     await ctx.send("I am dying")
     await bot.close()
 
