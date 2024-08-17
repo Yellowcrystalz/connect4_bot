@@ -5,6 +5,7 @@ class Board():
     def valid_move(self, position):
         if position > 7:
             return False
+
         return len(self.grid[position - 1]) < 6
     
     def place(self, position, player):
@@ -25,6 +26,7 @@ class Board():
                         string_grid += ':blue_square: '
                 except IndexError:
                     string_grid += ':white_square_button: ' 
+
             string_grid = string_grid[:-1]
             string_grid += '\n'
         

@@ -23,7 +23,10 @@ async def on_ready():
 
     try:
         synced_commands = await bot.tree.sync()
-        print(f"Synced {len(synced_commands)} commands.")
+        if len(synced_commands) == 1:
+            print("Synced 1 command.")
+        else:
+            print(f"Synced {len(synced_commands)} commands.")
     except Exception as e:
         print("An error with syncing application commands has occured: ", e)
 
