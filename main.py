@@ -5,10 +5,12 @@ from dotenv import load_dotenv
 import asyncio
 from itertools import cycle
 
+from classes.board_ui import BoardUI
+
 load_dotenv()
 token = os.getenv('DISCORD_BOT_TOKEN')
 
-bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
+bot = commands.Bot(command_prefix='c4 ', intents=discord.Intents.all())
 
 bot_statuses = cycle(["Status One", "Status Two"])
 
