@@ -26,16 +26,25 @@ class BoardUI(Board, discord.ui.View):
         return self.embed
     
     def create_embed(self, message):
-        string = (
-            f"——————————————\n\n" +
+        board_string = (
+             f"——————————————\n\n" +
             self.to_string() +
-            "\n——————————————\n" +
+            "\n——————————————\n"           
+        )
+
+        text_string = (
             f"Turn: {self.turn}\n\n" +
             message
         )
                                     
         self.embed.clear_fields()
-        self.embed.add_field(name="", value=string)
+        self.embed.add_field(name="", value=board_string, inline=False)
+        self.embed.add_field(name="", value=text_string, inline=False)
+
+    async def start(self, interaction):
+        await interaction.followup.send(content=f"{self.player1.mention}",
+                                        embed=self.get_embed(),
+                                        view=self)
     
     async def shutdown(self, interaction):
         self.clear_items()

@@ -23,12 +23,12 @@ class Connect4(commands.Cog):
             return
 
         accept_ui = AcceptUI(interaction.user, opponent)
-        await interaction.response.send_message(content=f"{opponent.mention}", embed=accept_ui.get_embed(), view=accept_ui) 
+        await accept_ui.start(interaction)
         await accept_ui.wait()
 
         if accept_ui.get_response():
             board_ui = BoardUI(interaction.user, opponent)
-            await interaction.followup.send(embed=board_ui.get_embed(), view=board_ui)
+            await board_ui.start(interaction)
 
 async def setup(bot):
     await bot.add_cog(Connect4(bot))

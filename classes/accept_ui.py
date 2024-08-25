@@ -27,6 +27,11 @@ class AcceptUI(discord.ui.View):
             return
         
         await self.shutdown(interaction)
+    
+    async def start(self, interaction):
+        await interaction.response.send_message(content=f"{self.player2.mention}",
+                                                embed=self.get_embed(),
+                                                view=self) 
        
     async def shutdown(self, interaction):
         self.children[0].disabled = True

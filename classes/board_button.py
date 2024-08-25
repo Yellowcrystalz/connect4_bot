@@ -8,31 +8,35 @@ class BoardButton(discord.ui.Button):
         if await self.check_turn(interaction):
             return
 
-        self.view.place(int(self.label), 'X' if self.view.turn % 2 == 1 else 'O')
-        self.view.turn += 1
-        string = f"**{self.view.player1.name if self.view.turn % 2 == 0 else self.view.player2.name}** has placed at {self.label}\n"
+        view = self.view
 
-        terminal = self.view.check_terminal()
+        view.place(int(self.label), 'X' if view.turn % 2 == 1 else 'O')
+        view.turn += 1
+        string = f"**{view.player1.name if view.turn % 2 == 0 else view.player2.name}** has placed at {self.label}\n"
+
+        terminal = view.check_terminal()
         
         if terminal == -1 or terminal == 1:
-            string += f"{self.view.player1 if terminal == 1 else self.view.player2} has won!"
-            await self.view.shutdown(interaction)
+            string += f"**{view.player1 if terminal == 1 else view.player2}** has won!"
+            await view.shutdown(interaction)
         else:
-            if not self.view.valid_move(int(self.label)):
-                self.view.remove_item(self)
+            string += f"**{view.player1.name if view.turn % 2 == 1 else view.player2.name}** it is your turn"
 
-            string += f"**{self.view.player1.name if self.view.turn % 2 == 1 else self.view.player2.name}** it is your turn"
+            if not view.valid_move(int(self.label)):
+                view.remove_item(self)
 
-        self.view.create_embed(string)
-        await interaction.response.edit_message(content=f"{self.view.player1.mention if self.view.turn % 2 == 1 else self.view.player2.mention}",
-                                                embed=self.view.get_embed(), 
-                                                view=self.view)
+        view.create_embed(string)
+        await interaction.response.edit_message(content=f"{view.player1.mention if view.turn % 2 == 1 else view.player2.mention}",
+                                                embed=view.get_embed(), 
+                                                view=view)
         
     async def check_turn(self, interaction):
-        if interaction.user != self.view.player1 and interaction.user != self.view.player2:
+        view = self.view
+
+        if interaction.user != view.player1 and interaction.user != view.player2:
             await interaction.response.send_message(f"{interaction.user.mention}, you aren't in this game!", ephemeral=True)
             return True
-        elif self.view.turn % 2 == 1 and interaction.user != self.view.player1 or self.view.turn % 2 == 0 and interaction.user != self.view.player2:
+        elif view.turn % 2 == 1 and interaction.user != view.player1 or view.turn % 2 == 0 and interaction.user != view.player2:
             await interaction.response.send_message(f"{interaction.user.mention}, it isn't your turn!", ephemeral=True)
             return True
         

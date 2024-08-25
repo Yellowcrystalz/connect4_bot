@@ -9,13 +9,18 @@ class Board():
         return len(self.grid[position - 1]) < 6
     
     def place(self, position, player):
-        if not self.valid_move(position):
-            return False
-        
         self.grid[position - 1].append(player)
     
     def to_string(self):
-        string_grid = ""
+        string_grid = (
+            ":one: " +
+            ":two: " +
+            ":three: " +
+            ":four: " +
+            ":five: " +
+            ":six: " +
+            ":seven:\n"
+        )
 
         for j in range(6):
             for i in range(7):
