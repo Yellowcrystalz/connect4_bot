@@ -46,7 +46,7 @@ class Board():
                 try:
                     symbol = self.grid[i][j]
 
-                    if i < 4 and j < 3:
+                    if not (i < 4 and j < 3):
                         pass
 
                     if i < 4:
@@ -56,15 +56,17 @@ class Board():
                     if j < 3:
                         if self.check_vertical(i, j, symbol):
                             return 1 if symbol == 'X' else -1
-                    
-                    if self.check_diagonal(i, j, symbol):
-                        return 1 if symbol == 'X' else -1
+
+                        if self.check_diagonal(i, j, symbol):
+                            return 1 if symbol == 'X' else -1
 
                 except IndexError:
                     blank_count += 1
                     
             if blank_count == 7:
                 return 0
+        
+        return 0
     
     def check_horizontal(self, i, j, symbol):
         try:
@@ -93,9 +95,9 @@ class Board():
         return False
     
     def check_diagonal(self, i, j, symbol):
-        if self.check_bottom_right_to_top_left(i, j, symbol):
+        if self.check_bottom_right_to_top_left(i, j, symbol) and i > 2:
             return True
-        elif self.check_bottom_left_to_top_right(i, j, symbol):
+        elif self.check_bottom_left_to_top_right(i, j, symbol) and i < 4:
             return True
         return False
     

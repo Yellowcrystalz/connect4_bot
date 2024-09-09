@@ -4,8 +4,7 @@ import os
 from dotenv import load_dotenv
 import asyncio
 from itertools import cycle
-
-from classes.board_ui import BoardUI
+import sys
 
 load_dotenv()
 token = os.getenv('DISCORD_BOT_TOKEN')
