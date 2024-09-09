@@ -1,7 +1,6 @@
 .vscode
 c
 __pycache__
-.env
 test*
 .git*
 README.md
