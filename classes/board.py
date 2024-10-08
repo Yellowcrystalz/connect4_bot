@@ -7,10 +7,10 @@ class Board():
             return False
 
         return len(self.grid[position - 1]) < 6
-    
+
     def place(self, position, player):
         self.grid[position - 1].append(player)
-    
+
     def to_string(self):
         string_grid = (
             ":one: " +
@@ -30,13 +30,13 @@ class Board():
                     else:
                         string_grid += ':yellow_square: '
                 except IndexError:
-                    string_grid += ':white_square_button: ' 
+                    string_grid += ':white_square_button: '
 
             string_grid = string_grid[:-1]
             string_grid += '\n'
 
         return string_grid
-    
+
     def check_terminal(self):
         for j in range(6):
             blank_count = 0
@@ -50,9 +50,9 @@ class Board():
                         pass
 
                     if i < 4:
-                       if self.check_horizontal(i, j, symbol):
+                        if self.check_horizontal(i, j, symbol):
                             return 1 if symbol == 'X' else -1
-                    
+
                     if j < 3:
                         if self.check_vertical(i, j, symbol):
                             return 1 if symbol == 'X' else -1
@@ -62,12 +62,12 @@ class Board():
 
                 except IndexError:
                     blank_count += 1
-                    
+
             if blank_count == 7:
                 return 0
-        
+
         return 0
-    
+
     def check_horizontal(self, i, j, symbol):
         try:
             if (
@@ -78,9 +78,9 @@ class Board():
                 return True
         except IndexError:
             return False
-        
+
         return False
-    
+
     def check_vertical(self, i, j, symbol):
         try:
             if (
@@ -91,16 +91,16 @@ class Board():
                 return True
         except IndexError:
             return False
-        
+
         return False
-    
+
     def check_diagonal(self, i, j, symbol):
         if self.check_bottom_right_to_top_left(i, j, symbol) and i > 2:
             return True
         elif self.check_bottom_left_to_top_right(i, j, symbol) and i < 4:
             return True
         return False
-    
+
     def check_bottom_right_to_top_left(self, i, j, symbol):
         try:
             if (
@@ -111,9 +111,9 @@ class Board():
                 return True
         except IndexError:
             return False
-        
-        return False           
-    
+
+        return False
+
     def check_bottom_left_to_top_right(self, i, j, symbol):
         try:
             if (
@@ -124,5 +124,5 @@ class Board():
                 return True
         except IndexError:
             return False
-        
+
         return False
