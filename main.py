@@ -4,12 +4,17 @@ import os
 from dotenv import load_dotenv
 import asyncio
 from itertools import cycle
-# import sys
 
 load_dotenv()
 token = os.getenv('DISCORD_BOT_TOKEN')
 bot = commands.Bot(command_prefix='c4 ', intents=discord.Intents.all())
-bot_statuses = cycle(["Status One", "Status Two"])
+bot_statuses = cycle([
+    "me gustan los patos",
+    "se hizo pipi",
+    "but I'm the weird one?",
+    "is this all y'all do?",
+    "top 10 Steven quotes"
+])
 
 
 @tasks.loop(seconds=5)
