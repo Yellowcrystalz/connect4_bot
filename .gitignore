@@ -3,3 +3,4 @@ c
 __pycache__
 .env
 test*
+connect4.sqlite
