@@ -10,7 +10,7 @@ try:
     c.executescript(sql)
     conn.commit()
 except sqlite3.Error as e:
-    print(f"An error has occured {e}")
+    print(f"An error has occured: {e}")
 finally:
     conn.rollback()
 
