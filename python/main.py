@@ -45,7 +45,7 @@ async def kill(ctx):
 
 
 async def load():
-    for filename in os.listdir('./cogs'):
+    for filename in os.listdir('./python/cogs'):
         if filename.endswith('.py'):
             await bot.load_extension(f'cogs.{filename[:-3]}')
 
